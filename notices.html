@@ -1,0 +1,95 @@
+<!DOCTYPE html><html lang="ko"> <head><meta charset="UTF-8"><meta name="description" content="OOO 레이저 절곡 회사 소개 페이지"><meta name="viewport" content="width=device-width"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="stylesheet" href="/style.css"><meta name="generator" content="Astro v4.0.7"><title>공지사항 - OOO 레이저 절곡</title><style>.admin-buttons[data-astro-cid-whazgc7p]{margin-top:1rem;display:flex;justify-content:flex-end;gap:.5rem}.admin-buttons[data-astro-cid-whazgc7p] button[data-astro-cid-whazgc7p]{padding:.5rem 1rem;border:none;border-radius:5px;cursor:pointer;font-size:.9rem}.edit-button[data-astro-cid-whazgc7p]{background-color:#ffc107;color:#333}.delete-button[data-astro-cid-whazgc7p]{background-color:#dc3545;color:#fff}.cancel-button[data-astro-cid-whazgc7p]{background-color:#6c757d;color:#fff;margin-left:.5rem}
+</style><script type="module" src="/_astro/hoisted.DJ7ofOtk.js"></script></head> <body> <header> <div class="header-inner"> <div class="logo">  <a href="/"> <img src="/logo.svg" alt="회사 로고" style="height: 50px;"> </a> </div> <nav> <ul> <li class="dropdown"> <a href="/company" class="dropbtn">회사소개</a> <div class="dropdown-content"> <a href="/company">회사소개</a> <a href="/history">회사연혁</a> <a href="/vision">비전</a> <a href="/core-values">핵심가치</a> <a href="/organization">조직도</a> </div> </li> <li class="dropdown"> <a href="/products" class="dropbtn">전체제품</a> <div class="dropdown-content"> <a href="/products">전체제품</a> <a href="/product-list">제품 목록</a> <a href="/custom-order">주문 제작</a> </div> </li> <li class="dropdown"> <a href="/notices" class="dropbtn">공지사항</a> <div class="dropdown-content"> <a href="/notices">공지사항</a> <a href="/major-notices">주요 공지</a> <a href="/holiday-notices">휴일안내</a> </div> </li> <li><a href="/support">고객센터</a></li> </ul> </nav> <div class="language-setting"> <button class="lang-btn">KR</button> <div class="lang-dropdown-content"> <a href="#">CH</a> <a href="#">JP</a> <a href="#">US</a> </div> </div> <div class="auth-buttons" id="authButtons"> <button class="login-button" id="loginBtn">로그인</button> <a href="/signup" class="signup-button">회원가입</a> </div> </div> <div id="loginModal" class="modal"> <div class="modal-content"> <span class="close-button">&times;</span> <input type="text" id="username" placeholder="아이디"> <input type="password" id="password" placeholder="비밀번호"> <button class="submit-button">로그인</button> </div> </div> </header>  <main data-astro-cid-whazgc7p> <div client:only="react" data-astro-cid-whazgc7p></div> </main>  <footer class="company-footer"> <div class="footer-content"> <p>OOO 레이저 절곡 | 주소: OOO시 OOO구 OOO동 OOO</p> <p>전화: 000-0000-0000 | 사업자 등록번호: 000-00-00000</p> </div> </footer>  </body> </html> <script lang="tsx">
+  import React, { useState } from 'react';
+  import { createRoot } from 'react-dom/client';
+
+  const initialNotices = [
+    { id: 1, title: '첫 번째 공지', content: '첫 번째 공지 내용입니다.' },
+    { id: 2, title: '두 번째 공지', content: '두 번째 공지 내용입니다.' },
+  ];
+
+  function NoticesClientComponent() {
+    const [notices, setNotices] = useState([...initialNotices]);
+    const [editingNoticeId, setEditingNoticeId] = useState(null);
+    const isAdmin = true;
+
+    function addNotice(newNotice) {
+      if (editingNoticeId) {
+        const updatedNotices = notices.map(notice =>
+          notice.id === editingNoticeId ? { ...notice, ...newNotice, id: editingNoticeId } : notice
+        );
+        setNotices(updatedNotices);
+        setEditingNoticeId(null);
+      } else {
+        newNotice.id = notices.length + 1;
+        setNotices([...notices, newNotice]);
+      }
+    }
+
+    function deleteNotice(id) {
+      const updatedNotices = notices.filter(notice => notice.id !== id);
+      setNotices(updatedNotices);
+    }
+
+    function startEditing(notice) {
+      setEditingNoticeId(notice.id);
+      const titleInput = document.getElementById('title');
+      const contentInput = document.getElementById('content');
+      if (titleInput) titleInput.value = notice.title;
+      if (contentInput) contentInput.value = notice.content;
+    }
+
+    return (
+      <>
+        <section class="notice-form">
+          <h2>{editingNoticeId ? '공지 수정' : '새 공지 작성'}</h2>
+          <form id="noticeForm" onSubmit={(event) => {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const title = formData.get('title')?.toString();
+            const content = formData.get('content')?.toString();
+            if (title && content) {
+              addNotice({ title, content });
+              if (document.getElementById('noticeForm')) document.getElementById('noticeForm').reset();
+            }
+          }}>
+            <div class="form-group">
+              <label htmlFor="title">제목</label>
+              <input type="text" id="title" name="title" required />
+            </div>
+            <div class="form-group">
+              <label htmlFor="content">내용</label>
+              <textarea id="content" name="content" rows="5" required></textarea>
+            </div>
+            <button type="submit" class="submit-button">{editingNoticeId ? '수정하기' : '게시하기'}</button>
+            {editingNoticeId && <button type="button" class="cancel-button" onClick={() => { setEditingNoticeId(null); if (document.getElementById('noticeForm')) document.getElementById('noticeForm').reset(); }}>취소</button>}
+          </form>
+        </section>
+
+        <section class="notice-list">
+          <h2>공지 목록</h2>
+          <ul>
+            {notices.map((notice) => (
+              <li key={notice.id}>
+                <h3>{notice.title}</h3>
+                <p>{notice.content}</p>
+                {isAdmin && (
+                  <div class="admin-buttons">
+                    <button class="edit-button" onClick={() => startEditing(notice)}>수정</button>
+                    <button class="delete-button" onClick={() => deleteNotice(notice.id)}>삭제</button>
+                  </div>
+                )}
+              </li>
+            ))}
+          </ul>
+        </section>
+      </>
+    );
+  }
+
+  const reactRoot = document.getElementById('react-root');
+  if (reactRoot) {
+    const root = createRoot(reactRoot);
+    root.render(<NoticesClientComponent />);
+  }
+</script> 
