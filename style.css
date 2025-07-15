@@ -30,14 +30,14 @@ header.logo {
   color: inherit;
 }
 .logo-image {
-    height: 30px;          /* 이미지 높이 설정 */
+    height: 40px;          /* 이미지 높이 설정 */
     margin-right: 10px;    /* 이미지와 텍스트 사이 간격 */
      width: auto; 
 }
 
 /* .logo-text 클래스: 로고 옆 텍스트 */
 .logo-text {
-    font-size: 28px;       /* 텍스트 크기 */
+    font-size: 24px;       /* 텍스트 크기 */
     font-weight: bold;     /* 텍스트 굵기 */
     /* color: #333; */ /* 원하는 텍스트 색상 지정 */
 }
