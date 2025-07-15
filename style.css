@@ -32,7 +32,7 @@ header .logo {
 .logo-image {
     height: 50px;          /* 이미지 높이 설정 */
     margin-right: 10px;    /* 이미지와 텍스트 사이 간격 */
-    /* width: auto; */ /* 필요에 따라 추가, height와 함께 비율 유지 */
+     width: auto; 
 }
 
 /* .logo-text 클래스: 로고 옆 텍스트 */
