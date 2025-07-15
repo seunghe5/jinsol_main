@@ -18,7 +18,7 @@ header {
   padding: 0 20px;
 }
 
-header .logo {
+header.logo {
   flex: 1;
   max-width: 200px;
 }
