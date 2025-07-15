@@ -22,9 +22,24 @@ header .logo {
   flex: 1;
   max-width: 200px;
 }
+.logo-link {
+   display: flex;
+   align-items: center;
+  white-space: nowrap;
+  text-decoration: none;
+  color: inherit;
+}
+.logo-image {
+    height: 50px;          /* 이미지 높이 설정 */
+    margin-right: 10px;    /* 이미지와 텍스트 사이 간격 */
+    /* width: auto; */ /* 필요에 따라 추가, height와 함께 비율 유지 */
+}
 
-header .logo img {
-  height: auto;
+/* .logo-text 클래스: 로고 옆 텍스트 */
+.logo-text {
+    font-size: 24px;       /* 텍스트 크기 */
+    font-weight: bold;     /* 텍스트 굵기 */
+    /* color: #333; */ /* 원하는 텍스트 색상 지정 */
 }
 
 header nav {
