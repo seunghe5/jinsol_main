@@ -180,6 +180,8 @@ header nav ul li a:hover {
   min-width: 40px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
+  border-radius: 5px;
+  margin-top: 5px;
 }
 
 .lang-dropdown-content a {
@@ -291,9 +293,8 @@ header nav ul li a:hover {
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   position: absolute;
   top: 50%;
-  left: auto;
-  right: calc(100% - (var(--login-button-offset-left) + var(--login-button-width)));
-  transform: translateY(-50%);
+  left: 50%; /* Changed from auto */
+  transform: translate(-50%, -50%); /* Centering */
   margin: 0;
 }
 
@@ -351,23 +352,33 @@ header nav ul li a:hover {
   position: relative;
   margin: auto;
   overflow: hidden;
+  /* Aspect ratio for the slider (e.g., 16:9) */
+  padding-bottom: 56.25%; /* 9 / 16 * 100% */
+  height: 0; /* Important for padding-bottom trick */
 }
 
 .slider {
   display: flex;
   transition: transform 0.6s ease-in-out;
+  position: absolute; /* Position slider to fill container */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .slide {
   width: 100%;
   display: none;
   position: relative;
+  flex-shrink: 0; /* Prevent slides from shrinking */
 }
 
 .slide img {
   width: 100%;
-  height: auto;
+  height: 100%;
   display: block;
+  object-fit: cover; /* Ensure image covers the area while maintaining aspect ratio */
 }
 
 .slide-text {
@@ -450,6 +461,7 @@ header nav ul li a:hover {
   display: flex;
   padding: 2rem;
   gap: 2rem;
+  margin-top: 80px; /* Adjust for fixed header */
 }
 
 .left-sidebar {
@@ -505,6 +517,200 @@ header nav ul li a:hover {
   flex: 1;
 }
 
+/* History Timeline Styles */
+.history-timeline {
+  position: relative;
+  padding: 20px 0;
+  margin-top: 20px;
+}
+
+.history-timeline::before {
+  content: '';
+  position: absolute;
+  left: 10px;
+  top: 0;
+  width: 2px;
+  height: 100%;
+  background-color: #007bff;
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 30px;
+  padding-left: 40px;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 5px;
+  width: 20px;
+  height: 20px;
+  background-color: #007bff;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  box-shadow: 0 0 0 2px #007bff;
+}
+
+.timeline-date {
+  display: block;
+  font-weight: bold;
+  color: #007bff;
+  margin-bottom: 5px;
+}
+
+.timeline-event {
+  display: block;
+  color: #333;
+  line-height: 1.5;
+}
+
+/* Organization Chart Styles */
+.organization-chart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.org-node {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px 15px;
+  margin: 10px 0;
+  text-align: center;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.org-node.ceo {
+  background-color: #007bff;
+  color: white;
+  padding: 15px 25px;
+  font-size: 1.2em;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.org-node.ceo::after {
+  content: '';
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 20px;
+  background-color: #007bff;
+}
+
+.org-level {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+  position: relative;
+  margin-top: 20px;
+}
+
+.org-level::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 40px); /* Adjust width to span across departments */
+  height: 2px;
+  background-color: #007bff;
+  z-index: 0;
+}
+
+.org-level > .department {
+  position: relative;
+  flex: 1;
+  max-width: 300px;
+  margin-top: 20px; /* Space for the connecting line */
+}
+
+.org-level > .department::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 20px;
+  background-color: #007bff;
+}
+
+.org-node.department {
+  background-color: #e9f5ff;
+  border-color: #a0d9ff;
+  margin-bottom: 20px;
+}
+
+.org-node.department h4 {
+  color: #0056b3;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.org-node.team {
+  background-color: #f0f8ff;
+  border-color: #b3e0ff;
+  margin-top: 15px;
+}
+
+.org-node.team h5 {
+  color: #004085;
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+.org-node ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+}
+
+.org-node ul li {
+  font-size: 0.9em;
+  color: #555;
+  margin-bottom: 3px;
+}
+
+/* Nested org-level for Production sub-teams */
+.org-node.department > .org-level {
+  margin-top: 15px;
+  flex-direction: row; /* Keep sub-teams side-by-side */
+  gap: 10px;
+}
+
+.org-node.department > .org-level::before {
+  display: none; /* Hide horizontal line for sub-levels */
+}
+
+.org-node.department > .org-level > .team {
+  margin-top: 10px;
+  flex: 1;
+}
+
+.org-node.department > .org-level > .team::before {
+  content: '';
+  position: absolute;
+  top: -10px; /* Adjust for smaller gap */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 10px; /* Shorter line */
+  background-color: #007bff;
+}
+
+
 /* 문의하기 section in 고객센터 page */
 .inquiry-section {
   max-width: 800px;
@@ -539,6 +745,14 @@ header nav ul li a:hover {
 
   .company-info, .services, .contact {
     padding: 40px 20px;
+  }
+
+  .org-level {
+    flex-wrap: wrap;
+  }
+
+  .org-level > .department {
+    flex-basis: calc(50% - 10px); /* Two columns on tablet */
   }
 }
 
@@ -610,5 +824,28 @@ header nav ul li a:hover {
 
   .left-sidebar .dropdown-button {
     text-align: center; /* Center dropdown button text on mobile */
+  }
+
+  .org-level {
+    flex-direction: column; /* Stack departments vertically on mobile */
+    gap: 10px;
+  }
+
+  .org-level::before {
+    width: 2px; /* Vertical line only */
+    height: calc(100% - 40px); /* Adjust height */
+    left: 50%;
+    top: 20px;
+    transform: translateX(-50%);
+  }
+
+  .org-level > .department {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .org-node.department > .org-level {
+    flex-direction: column; /* Stack sub-teams vertically */
+    gap: 10px;
   }
 }
