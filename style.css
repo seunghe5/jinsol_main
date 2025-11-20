@@ -370,8 +370,11 @@ header nav ul li a:hover {
 .slide {
   width: 100%;
   display: none;
-  position: relative;
-  flex-shrink: 0; /* Prevent slides from shrinking */
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%; /* 부모 .slider-container의 높이를 상속 */
+  flex-shrink: 0; 
 }
 
 .slide img {
