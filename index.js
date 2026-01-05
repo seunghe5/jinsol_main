@@ -1,7 +1,7 @@
 module.exports = {
-  decode: require('./decode'),
+  decode: require('jsonwebtoken/decode'),
   verify: require('./verify'),
-  sign: require('./sign'),
+  sign: require('jsonwebtoken/sign'),
   JsonWebTokenError: require('./lib/JsonWebTokenError'),
   NotBeforeError: require('./lib/NotBeforeError'),
   TokenExpiredError: require('./lib/TokenExpiredError'),
