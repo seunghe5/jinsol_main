@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const contact = document.getElementById('contact').value; // HTML의 id는 'contact'이지만 백엔드 컬럼은 'phone_number'입니다.
 
     try {
-      const response = await fetch('/api/register', { // 백엔드 API 주소
+      const response = await fetch('http://139.150.81.11/api/register', { // 백엔드 API 주소
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -42,4 +42,5 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
 
