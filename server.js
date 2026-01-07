@@ -12,9 +12,12 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // 1. [정적 파일 설정] API보다 아래에 있어도 되지만 명확히 추가해야 함
-app.use(express.static(path.join(__dirname)));
-app.use('/_astro', express.static(path.join(__dirname, '_astro')));
+const root = path.resolve(__dirname);
+app.use(express.static(root));
+app.use('/_astro', express.static(path.join(root, '_astro')));
 
+// 확인용 로그 (서버 켤 때 경로 출력)
+console.log("Serving static files from:", root);
 // 2. [회원 가입 API]
 app.post('/api/register', async (req, res) => {
   try {
