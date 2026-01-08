@@ -53,7 +53,7 @@ app.post('/api/register', async (req, res) => {
 });
 // 1. [정적 파일 설정] API보다 아래에 있어도 되지만 명확히 추가해야 함
 const root = path.resolve(__dirname);
-app.use(express.static(root));
+app.use(express.static(root, { extensions: ['html'] }));
 app.use('/_astro', express.static(path.join(root, '_astro')));
 // 3. [서버 시작] 맨 밑에 한 번만 작성합니다.
 app.listen(port, () => {
