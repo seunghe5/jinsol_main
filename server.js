@@ -15,6 +15,10 @@ app.use(bodyParser.json());
 
 // 확인용 로그 (서버 켤 때 경로 출력)
 console.log("Serving static files from:", root);
+// 1. [정적 파일 설정] API보다 아래에 있어도 되지만 명확히 추가해야 함
+const root = path.resolve(__dirname);
+app.use(express.static(root, { extensions: ['html'] }));
+app.use('/_astro', express.static(path.join(root, '_astro')));
 // 2. [회원 가입 API]
 app.post('/api/register', async (req, res) => {
   try {
@@ -51,10 +55,7 @@ app.post('/api/register', async (req, res) => {
     res.status(500).json({ message: '회원 가입 처리 중 오류가 발생했습니다.' });
   }
 });
-// 1. [정적 파일 설정] API보다 아래에 있어도 되지만 명확히 추가해야 함
-const root = path.resolve(__dirname);
-app.use(express.static(root, { extensions: ['html'] }));
-app.use('/_astro', express.static(path.join(root, '_astro')));
+
 // 3. [서버 시작] 맨 밑에 한 번만 작성합니다.
 app.listen(port, () => {
   console.log(`서버가 포트 ${port}에서 정상 실행 중입니다.`);
